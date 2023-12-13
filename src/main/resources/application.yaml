@@ -1,1 +1,9 @@
+server:
+  port: 8002
 
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: rmuser
+    password: rmpassword
