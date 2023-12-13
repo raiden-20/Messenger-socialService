@@ -1,7 +1,17 @@
 server:
   port: 8002
-
+jwt:
+  secret: 29qmvb8qbzj7sjhrrtmi5xp3oz98kzk529qmvb8qbzj7sj
 spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost/social_cluster
+    username: social_cluster
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    open-in-view: true
   rabbitmq:
     host: rabbitmq
     port: 5672
