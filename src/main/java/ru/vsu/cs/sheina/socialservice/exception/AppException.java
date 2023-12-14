@@ -1,4 +1,4 @@
-package ru.vsu.cs.socialservice.exception;
+package ru.vsu.cs.sheina.socialservice.exception;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package ru.vsu.cs.socialservice.configuration;
+package ru.vsu.cs.sheina.socialservice.configuration;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;

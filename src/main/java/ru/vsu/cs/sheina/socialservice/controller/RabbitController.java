@@ -1,12 +1,12 @@
-package ru.vsu.cs.socialservice.controller;
+package ru.vsu.cs.sheina.socialservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
-import ru.vsu.cs.socialservice.configuration.RabbitQueues;
-import ru.vsu.cs.socialservice.dto.fields.IdDTO;
-import ru.vsu.cs.socialservice.service.UserDataService;
+import ru.vsu.cs.sheina.socialservice.configuration.RabbitQueues;
+import ru.vsu.cs.sheina.socialservice.dto.fields.IdDTO;
+import ru.vsu.cs.sheina.socialservice.service.UserDataService;
 
 @Controller
 @RequiredArgsConstructor

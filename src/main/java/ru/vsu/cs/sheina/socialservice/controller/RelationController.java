@@ -1,12 +1,12 @@
-package ru.vsu.cs.socialservice.controller;
+package ru.vsu.cs.sheina.socialservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.socialservice.dto.ActionDTO;
-import ru.vsu.cs.socialservice.dto.UserShortDTO;
-import ru.vsu.cs.socialservice.entity.enums.Relation;
-import ru.vsu.cs.socialservice.service.RelationService;
+import ru.vsu.cs.sheina.socialservice.dto.ActionDTO;
+import ru.vsu.cs.sheina.socialservice.dto.UserShortDTO;
+import ru.vsu.cs.sheina.socialservice.entity.enums.Relation;
+import ru.vsu.cs.sheina.socialservice.service.RelationService;
 
 import java.util.List;
 import java.util.UUID;

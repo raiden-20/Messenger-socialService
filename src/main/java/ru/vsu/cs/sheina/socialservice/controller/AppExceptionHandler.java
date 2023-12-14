@@ -1,11 +1,11 @@
-package ru.vsu.cs.socialservice.controller;
+package ru.vsu.cs.sheina.socialservice.controller;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.vsu.cs.socialservice.exception.AppException;
+import ru.vsu.cs.sheina.socialservice.exception.AppException;
 
 @RestControllerAdvice
 public class AppExceptionHandler {

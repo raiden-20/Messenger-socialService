@@ -1,4 +1,4 @@
-package ru.vsu.cs.socialservice.util;
+package ru.vsu.cs.sheina.socialservice.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

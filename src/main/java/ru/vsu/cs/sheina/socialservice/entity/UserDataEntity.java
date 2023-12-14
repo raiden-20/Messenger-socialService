@@ -1,4 +1,4 @@
-package ru.vsu.cs.socialservice.entity;
+package ru.vsu.cs.sheina.socialservice.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
