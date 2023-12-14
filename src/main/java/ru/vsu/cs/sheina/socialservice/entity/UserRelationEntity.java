@@ -16,10 +16,10 @@ public class UserRelationEntity {
     Integer id;
 
     @Column(name = "first_user")
-    UUID first_user;
+    UUID firstUser;
 
     @Column(name = "second_user")
-    UUID second_user;
+    UUID secondUser;
 
     @Column(name = "status")
     RelationStatus status;
