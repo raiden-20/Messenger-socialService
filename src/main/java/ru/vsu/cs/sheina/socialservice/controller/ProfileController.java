@@ -37,4 +37,9 @@ public class ProfileController {
         userDataService.register(userRegistrationDTO);
         return ResponseEntity.ok("User successfully registered");
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers() {
+        return ResponseEntity.ok(userDataService.getAllUsers());
+    }
 }

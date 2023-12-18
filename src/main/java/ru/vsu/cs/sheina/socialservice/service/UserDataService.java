@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.sheina.socialservice.dto.UpdateUserDTO;
 import ru.vsu.cs.sheina.socialservice.dto.UserFullDTO;
 import ru.vsu.cs.sheina.socialservice.dto.UserRegistrationDTO;
+import ru.vsu.cs.sheina.socialservice.dto.UserShortDTO;
 import ru.vsu.cs.sheina.socialservice.dto.fields.IdDTO;
 import ru.vsu.cs.sheina.socialservice.dto.rabbitmq.FileDTO;
 import ru.vsu.cs.sheina.socialservice.entity.UserDataEntity;
@@ -18,6 +19,7 @@ import ru.vsu.cs.sheina.socialservice.repository.UserDataRepository;
 import ru.vsu.cs.sheina.socialservice.repository.UserRelationRepository;
 import ru.vsu.cs.sheina.socialservice.util.JwtTokenUtil;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -104,5 +106,11 @@ public class UserDataService {
         userDataEntity.setId(id);
 
         userDataRepository.save(userDataEntity);
+    }
+
+    public List<UserShortDTO> getAllUsers() {
+        return userDataRepository.findAll().stream()
+                .map(userMapper::toUserShortDTO)
+                .toList();
     }
 }
