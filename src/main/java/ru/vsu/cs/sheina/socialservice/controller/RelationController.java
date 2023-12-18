@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.sheina.socialservice.dto.ActionDTO;
 import ru.vsu.cs.sheina.socialservice.dto.UserShortDTO;
-import ru.vsu.cs.sheina.socialservice.entity.enums.Relation;
 import ru.vsu.cs.sheina.socialservice.service.RelationService;
 
 import java.util.List;
@@ -19,29 +18,26 @@ public class RelationController {
     private final RelationService relationService;
 
     @GetMapping("/friends/random/{id}")
-    public ResponseEntity<?> getRandomFriend(@PathVariable UUID id,
-                                             @RequestHeader("Authorization") String token) {
-        List<UserShortDTO> randomFriends = relationService.getRandomFriends(id, token);
+    public ResponseEntity<?> getRandomFriend(@PathVariable UUID id) {
+        List<UserShortDTO> randomFriends = relationService.getRandomFriends(id);
         return ResponseEntity.ok(randomFriends);
     }
 
-    @GetMapping("/{relation}/{id}")
+    @GetMapping("/relation/{relation}/{id}")
     public ResponseEntity<?> getUsers(@PathVariable UUID id,
-                                      @PathVariable Relation relation,
-                                      @RequestHeader("Authorization") String token) {
-        List<UserShortDTO> users = relationService.getUsers(id, relation, token);
+                                      @PathVariable String relation) {
+        List<UserShortDTO> users = relationService.getUsers(id, relation);
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/count/{relation}/{id}")
     public ResponseEntity<?> getCountRelations(@PathVariable UUID id,
-                                               @PathVariable Relation relation,
-                                               @RequestHeader("Authorization") String token) {
-        Integer count = relationService.getCountUsers(id, relation, token);
+                                               @PathVariable String relation) {
+        Integer count = relationService.getCountUsers(id, relation);
         return ResponseEntity.ok(count);
     }
 
-    @PostMapping("/{action}")
+    @PostMapping("/action")
     public ResponseEntity<?> relationAction(@RequestBody ActionDTO actionDTO,
                                             @RequestHeader("Authorization") String token){
         relationService.action(actionDTO, token);
