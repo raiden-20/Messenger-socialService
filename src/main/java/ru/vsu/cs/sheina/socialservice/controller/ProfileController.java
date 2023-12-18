@@ -18,12 +18,14 @@ public class ProfileController {
     private final UserDataService userDataService;
 
     @GetMapping("/data/{id}")
+    @CrossOrigin
     public ResponseEntity<?> getUserData(@PathVariable UUID id,
                                          @RequestHeader("Authorization") String token) {
        return ResponseEntity.ok(userDataService.getUserData(id, token));
     }
 
     @PostMapping(path = "/data")
+    @CrossOrigin
     public ResponseEntity<?> setUserData(@RequestPart("avatar") MultipartFile avatar,
                                          @RequestPart("cover") MultipartFile cover,
                                          @RequestPart("updateUserDTO") UpdateUserDTO updateUserDTO,
@@ -33,12 +35,14 @@ public class ProfileController {
     }
 
     @PostMapping("/registration")
+    @CrossOrigin
     public ResponseEntity<?> setUserName(@RequestBody UserRegistrationDTO userRegistrationDTO) {
         userDataService.register(userRegistrationDTO);
         return ResponseEntity.ok("User successfully registered");
     }
 
     @GetMapping("/users")
+    @CrossOrigin
     public ResponseEntity<?> getAllUsers() {
         return ResponseEntity.ok(userDataService.getAllUsers());
     }

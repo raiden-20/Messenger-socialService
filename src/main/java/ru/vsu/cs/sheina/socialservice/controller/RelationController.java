@@ -18,12 +18,14 @@ public class RelationController {
     private final RelationService relationService;
 
     @GetMapping("/friends/random/{id}")
+    @CrossOrigin
     public ResponseEntity<?> getRandomFriend(@PathVariable UUID id) {
         List<UserShortDTO> randomFriends = relationService.getRandomFriends(id);
         return ResponseEntity.ok(randomFriends);
     }
 
     @GetMapping("/relation/{relation}/{id}")
+    @CrossOrigin
     public ResponseEntity<?> getUsers(@PathVariable UUID id,
                                       @PathVariable String relation) {
         List<UserShortDTO> users = relationService.getUsers(id, relation);
@@ -31,6 +33,7 @@ public class RelationController {
     }
 
     @GetMapping("/count/{relation}/{id}")
+    @CrossOrigin
     public ResponseEntity<?> getCountRelations(@PathVariable UUID id,
                                                @PathVariable String relation) {
         Integer count = relationService.getCountUsers(id, relation);
@@ -38,6 +41,7 @@ public class RelationController {
     }
 
     @PostMapping("/action")
+    @CrossOrigin
     public ResponseEntity<?> relationAction(@RequestBody ActionDTO actionDTO,
                                             @RequestHeader("Authorization") String token){
         relationService.action(actionDTO, token);
