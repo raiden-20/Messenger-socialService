@@ -22,5 +22,6 @@ public class UserRelationEntity {
     UUID secondUser;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     RelationStatus status;
 }
