@@ -5,15 +5,19 @@ jwt:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost/social_cluster
+    url: jdbc:postgresql://localhost:5001/social_cluster
     username: social_cluster
     password: 1234
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     open-in-view: true
-  rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: rmuser
-    password: rmpassword
+#  rabbitmq:
+#    host: rabbitmq
+#    port: 5672
+#    username: rmuser
+#    password: rmpassword
+
+storage:
+  host: http:/localhost:9000
+  bucket: main-bucket

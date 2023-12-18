@@ -14,7 +14,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Queue mailSenderQueue() {
+    public Queue authServiceQueue() {
         return new Queue(RabbitQueues.fromAuthQueue);
+    }
+
+    @Bean
+    public Queue fileServiceQueue() {
+        return new Queue(RabbitQueues.toFileQueue);
     }
 }
