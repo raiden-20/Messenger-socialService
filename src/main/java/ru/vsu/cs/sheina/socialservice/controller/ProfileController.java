@@ -26,11 +26,9 @@ public class ProfileController {
 
     @PostMapping(path = "/data")
     @CrossOrigin
-    public ResponseEntity<?> setUserData(@RequestPart("avatar") MultipartFile avatar,
-                                         @RequestPart("cover") MultipartFile cover,
-                                         @RequestPart("updateUserDTO") UpdateUserDTO updateUserDTO,
+    public ResponseEntity<?> setUserData(@RequestBody UpdateUserDTO updateUserDTO,
                                          @RequestHeader("Authorization") String token) {
-        userDataService.setUserData(updateUserDTO, avatar, cover, token);
+        userDataService.setUserData(updateUserDTO, token);
         return ResponseEntity.ok("Data updated successfully");
     }
 

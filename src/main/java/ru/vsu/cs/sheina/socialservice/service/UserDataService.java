@@ -60,7 +60,7 @@ public class UserDataService {
         return userFullDTO;
     }
 
-    public void setUserData(UpdateUserDTO updateUserDTO, MultipartFile avatar, MultipartFile cover, String token) {
+    public void setUserData(UpdateUserDTO updateUserDTO, String token) {
         UUID currentId = jwtTokenUtil.retrieveIdClaim(token);
         UserDataEntity userDataEntity = userDataRepository.getUserDataEntityById(currentId).orElseThrow(UserDoesntExistException::new);
 
