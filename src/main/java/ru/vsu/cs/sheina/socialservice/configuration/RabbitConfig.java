@@ -15,11 +15,11 @@ public class RabbitConfig {
 
     @Bean
     public Queue authServiceQueue() {
-        return new Queue(RabbitQueues.fromAuthQueue);
+        return new Queue(RabbitQueues.fromAuthService);
     }
 
     @Bean
     public Queue fileServiceQueue() {
-        return new Queue(RabbitQueues.toFileQueue);
+        return new Queue(RabbitQueues.fromFileService);
     }
 }

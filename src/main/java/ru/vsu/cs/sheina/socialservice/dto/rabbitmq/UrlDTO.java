@@ -2,13 +2,14 @@ package ru.vsu.cs.sheina.socialservice.dto.rabbitmq;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
-public class FileDTO {
+public class UrlDTO {
+
+    String sourceId;
 
     String url;
 
-    MultipartFile file;
+    FileSource source;
 }

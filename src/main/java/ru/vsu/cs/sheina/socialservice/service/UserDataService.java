@@ -8,10 +8,9 @@ import ru.vsu.cs.sheina.socialservice.dto.UserFullDTO;
 import ru.vsu.cs.sheina.socialservice.dto.UserRegistrationDTO;
 import ru.vsu.cs.sheina.socialservice.dto.UserShortDTO;
 import ru.vsu.cs.sheina.socialservice.dto.fields.IdDTO;
-import ru.vsu.cs.sheina.socialservice.dto.rabbitmq.FileDTO;
+import ru.vsu.cs.sheina.socialservice.dto.rabbitmq.UrlDTO;
 import ru.vsu.cs.sheina.socialservice.entity.UserDataEntity;
 import ru.vsu.cs.sheina.socialservice.entity.UserRelationEntity;
-import ru.vsu.cs.sheina.socialservice.exception.FileTooBigException;
 import ru.vsu.cs.sheina.socialservice.exception.UserAlreadyExistsException;
 import ru.vsu.cs.sheina.socialservice.exception.UserDoesntExistException;
 import ru.vsu.cs.sheina.socialservice.mapper.UserMapper;
@@ -30,8 +29,6 @@ public class UserDataService {
     private final UserDataRepository userDataRepository;
     private final UserRelationRepository userRelationRepository;
     private final JwtTokenUtil jwtTokenUtil;
-    private final RabbitSender rabbitSender;
-    private final Integer FILE_MAX_SIZE = 2 * 1024 * 1024;
     private final UserMapper userMapper;
 
 
@@ -71,28 +68,6 @@ public class UserDataService {
         userDataEntity.setBirthDate(updateUserDTO.getBirthDate());
         userDataEntity.setBio(updateUserDTO.getBio());
 
-        if (updateUserDTO.getDeleteAvatarFlag()) {
-            FileDTO fileDTO = new FileDTO(userDataEntity.getAvatarUrl(), null);
-            rabbitSender.sendRequestToFileService(fileDTO);
-            userDataEntity.setAvatarUrl("");
-        }
-
-        if (!avatar.isEmpty()) {
-            if (avatar.getSize() > FILE_MAX_SIZE) {
-                throw new FileTooBigException();
-            }
-            FileDTO fileDTO = new FileDTO(userDataEntity.getAvatarUrl(), avatar);
-            userDataEntity.setAvatarUrl(rabbitSender.sendRequestToFileService(fileDTO));
-        }
-
-        if (!cover.isEmpty()) {
-            if (cover.getSize() > FILE_MAX_SIZE) {
-                throw new FileTooBigException();
-            }
-            FileDTO fileDTO = new FileDTO(userDataEntity.getCoverUrl(), cover);
-            userDataEntity.setCoverUrl(rabbitSender.sendRequestToFileService(fileDTO));
-        }
-
         userDataRepository.save(userDataEntity);
     }
 
@@ -112,5 +87,14 @@ public class UserDataService {
         return userDataRepository.findAll().stream()
                 .map(userMapper::toUserShortDTO)
                 .toList();
+    }
+
+    public void changeUrl(UrlDTO urlDTO) {
+        UserDataEntity userDataEntity = userDataRepository.getUserDataEntityById(UUID.fromString(urlDTO.getSourceId())).orElseThrow(UserDoesntExistException::new);
+        switch (urlDTO.getSource()) {
+            case AVATAR -> userDataEntity.setAvatarUrl(urlDTO.getUrl());
+            case COVER -> userDataEntity.setCoverUrl(urlDTO.getUrl());
+        }
+        userDataRepository.save(userDataEntity);
     }
 }
