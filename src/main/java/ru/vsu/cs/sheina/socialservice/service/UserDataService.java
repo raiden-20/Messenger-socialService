@@ -2,7 +2,6 @@ package ru.vsu.cs.sheina.socialservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.sheina.socialservice.dto.UpdateUserDTO;
 import ru.vsu.cs.sheina.socialservice.dto.UserFullDTO;
 import ru.vsu.cs.sheina.socialservice.dto.UserRegistrationDTO;

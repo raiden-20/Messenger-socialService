@@ -1,23 +1,19 @@
 server:
-  port: 8002
+  port: 8080
 jwt:
-  secret: 29qmvb8qbzj7sjhrrtmi5xp3oz98kzk529qmvb8qbzj7sj
+  secret: ${JWT_SECRET}
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5001/social_cluster
-    username: social_cluster
-    password: 1234
+    url: ${SOCIAL_POSTGRES_UR}
+    username: ${SOCIAL_POSTGRES_USER}
+    password: ${SOCIAL_POSTGRES_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     open-in-view: true
-#  rabbitmq:
-#    host: rabbitmq
-#    port: 5672
-#    username: rmuser
-#    password: rmpassword
-
-storage:
-  host: http:/localhost:9000
-  bucket: main-bucket
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASS}
