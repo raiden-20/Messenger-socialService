@@ -14,8 +14,4 @@ public class UpdateUserDTO {
     Timestamp birthDate;
 
     String bio;
-
-    Boolean deleteAvatarFlag;
-
-    Boolean deleteCoverFlag;
 }
