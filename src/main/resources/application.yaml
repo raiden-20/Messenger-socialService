@@ -5,7 +5,7 @@ jwt:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SOCIAL_POSTGRES_UR}
+    url: ${SOCIAL_POSTGRES_URL}
     username: ${SOCIAL_POSTGRES_USER}
     password: ${SOCIAL_POSTGRES_PASSWORD}
   jpa:
