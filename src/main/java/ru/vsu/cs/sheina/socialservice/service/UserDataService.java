@@ -37,6 +37,9 @@ public class UserDataService {
         }
         UserDataEntity userDataEntity = new UserDataEntity();
         userDataEntity.setId(idDTO.getId());
+        userDataEntity.setAvatarUrl("");
+        userDataEntity.setCoverUrl("");
+        userDataEntity.setBio("");
 
         userDataRepository.save(userDataEntity);
     }
