@@ -78,6 +78,9 @@ public class UserDataService {
 
         UserDataEntity userDataEntity = userMapper.fromUserRegistrationDTO(userRegistrationDTO);
         userDataEntity.setId(id);
+        userDataEntity.setBio("");
+        userDataEntity.setCoverUrl("");
+        userDataEntity.setAvatarUrl("");
 
         userDataRepository.save(userDataEntity);
     }
