@@ -17,7 +17,7 @@ public class AppExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handleJwtException(JWTVerificationException jwtVerificationException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad token");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Bad token");
     }
 
     @ExceptionHandler
