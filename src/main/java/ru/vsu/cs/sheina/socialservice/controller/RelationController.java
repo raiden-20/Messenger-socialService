@@ -17,7 +17,7 @@ public class RelationController {
 
     private final RelationService relationService;
 
-    @GetMapping("/friends/random/{id}")
+    @GetMapping("/relation/friends/random/{id}")
     @CrossOrigin
     public ResponseEntity<?> getRandomFriend(@PathVariable UUID id) {
         List<UserShortDTO> randomFriends = relationService.getRandomFriends(id);
