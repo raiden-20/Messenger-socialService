@@ -33,7 +33,7 @@ public class RelationService {
         List<UserRelationEntity> relations = userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.FRIENDS.toString());
         List<UserShortDTO> randomFriends = new ArrayList<>();
 
-        for (int i = 0; i < RANDOM_FRIENDS; i++) {
+        for (int i = 0; i < RANDOM_FRIENDS && !relations.isEmpty(); i++) {
             UserRelationEntity userRelationEntity = relations.get(random.nextInt(relations.size()));
             UserDataEntity userDataEntity = userDataRepository.getUserDataEntityById(userRelationEntity.getSecondUser())
                     .orElseThrow(UserDoesntExistException::new);

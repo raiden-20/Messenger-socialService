@@ -72,12 +72,11 @@ public class UserDataService {
 
     public void register(UserRegistrationDTO userRegistrationDTO) {
         UUID id = userRegistrationDTO.getId();
-        if (!userDataRepository.existsById(id)) {
-            throw new UserDoesntExistException();
-        }
 
-        UserDataEntity userDataEntity = userMapper.fromUserRegistrationDTO(userRegistrationDTO);
+        UserDataEntity userDataEntity = userDataRepository.getUserDataEntityById(id).orElseThrow(UserDoesntExistException::new);
         userDataEntity.setId(id);
+        userDataEntity.setName(userRegistrationDTO.getName());
+        userDataEntity.setBirthDate(userRegistrationDTO.getBirthDate());
         userDataEntity.setBio("");
         userDataEntity.setCoverUrl("");
         userDataEntity.setAvatarUrl("");
