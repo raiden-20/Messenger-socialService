@@ -14,13 +14,13 @@ public class RabbitConsumer {
 
     private final UserDataService userDataService;
 
-//    @RabbitListener(queues = RabbitQueues.fromAuthService)
-//    public void createUser(@RequestBody IdDTO idDTO) {
-//        userDataService.createUser(idDTO);
-//    }
-//
-//    @RabbitListener(queues = RabbitQueues.fromFileService)
-//    public void changeUrl(@RequestBody UrlDTO urlDTO) {
-//        userDataService.changeUrl(urlDTO);
-//    }
+    @RabbitListener(queues = RabbitQueues.fromAuthService)
+    public void createUser(@RequestBody IdDTO idDTO) {
+        userDataService.createUser(idDTO);
+    }
+
+    @RabbitListener(queues = RabbitQueues.fromFileService)
+    public void changeUrl(@RequestBody UrlDTO urlDTO) {
+        userDataService.changeUrl(urlDTO);
+    }
 }
