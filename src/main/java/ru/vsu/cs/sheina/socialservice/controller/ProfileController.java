@@ -41,7 +41,7 @@ public class ProfileController {
 
     @GetMapping("/users")
     @CrossOrigin
-    public ResponseEntity<?> getAllUsers() {
-        return ResponseEntity.ok(userDataService.getAllUsers());
+    public ResponseEntity<?> getAllUsers(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(userDataService.getAllUsers(token));
     }
 }

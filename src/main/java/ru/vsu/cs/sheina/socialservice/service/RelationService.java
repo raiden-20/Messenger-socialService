@@ -39,6 +39,7 @@ public class RelationService {
                     .orElseThrow(UserDoesntExistException::new);
 
             UserShortDTO userShortDTO = userMapper.toUserShortDTO(userDataEntity);
+            userShortDTO.setStatus(RelationStatus.FRIENDS);
             randomFriends.add(userShortDTO);
 
             relations.remove(userRelationEntity);
@@ -48,22 +49,36 @@ public class RelationService {
 
     public List<UserShortDTO> getUsers(UUID id, String relation) {
         RelationRequest relationRequest = RelationRequest.valueOf(relation.toUpperCase());
-        List<UserRelationEntity> relations = switch (relationRequest) {
-            case FRIENDS ->
-                    userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.FRIENDS.toString());
-            case SUBSCRIBERS ->
-                    userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.SEND_SECOND.toString());
-            case SUBSCRIPTIONS ->
-                    userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.SEND_FIRST.toString());
+        RelationStatus relationStatus = RelationStatus.FRIENDS;
+        List<UserRelationEntity> relations = new ArrayList<>();
+        switch (relationRequest) {
+            case FRIENDS: {
+                relations = userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.FRIENDS.toString());
+                relationStatus = RelationStatus.FRIENDS;
+            }
+            case SUBSCRIBERS: {
+                relations = userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.SEND_SECOND.toString());
+                relationStatus = RelationStatus.SEND_SECOND;
+            }
+            case SUBSCRIPTIONS: {
+                relations = userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.SEND_FIRST.toString());
+                relationStatus = RelationStatus.SEND_FIRST;
+            }
         };
 
-        return relations.stream()
+        List<UserShortDTO> dtos =  relations.stream()
                 .map(UserRelationEntity::getSecondUser)
                 .map(userDataRepository::getUserDataEntityById)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(userMapper::toUserShortDTO)
                 .toList();
+
+        for (UserShortDTO dto: dtos) {
+            dto.setStatus(relationStatus);
+        }
+
+        return dtos;
     }
 
     public Integer getCountUsers(UUID id, String relation) {

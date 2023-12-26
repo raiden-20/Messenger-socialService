@@ -84,14 +84,22 @@ public class UserDataService {
         userDataRepository.save(userDataEntity);
     }
 
-    public List<UserShortDTO> getAllUsers() {
-        return userDataRepository.findAll().stream()
+    public List<UserShortDTO> getAllUsers(String token) {
+        UUID currentId = jwtTokenUtil.retrieveIdClaim(token);
+        List<UserShortDTO> dtos =  userDataRepository.findAll().stream()
                 .map(userMapper::toUserShortDTO)
                 .toList();
+
+        for (UserShortDTO dto: dtos) {
+            Optional<UserRelationEntity> userRelationEntity = userRelationRepository.getUserRelationEntitiesByFirstUserAndSecondUser(currentId, dto.getId());
+            userRelationEntity.ifPresent(relationEntity -> dto.setStatus(relationEntity.getStatus()));
+        }
+
+        return dtos;
     }
 
     public void changeUrl(UrlDTO urlDTO) {
-        UserDataEntity userDataEntity = userDataRepository.getUserDataEntityById(UUID.fromString(urlDTO.getSourceId())).orElseThrow(UserDoesntExistException::new);
+        UserDataEntity userDataEntity = userDataRepository.getUserDataEntityById(urlDTO.getSourceId()).orElseThrow(UserDoesntExistException::new);
         switch (urlDTO.getSource()) {
             case AVATAR -> userDataEntity.setAvatarUrl(urlDTO.getUrl());
             case COVER -> userDataEntity.setCoverUrl(urlDTO.getUrl());

@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UrlDTO {
 
-    String sourceId;
+    UUID sourceId;
 
     String url;
 

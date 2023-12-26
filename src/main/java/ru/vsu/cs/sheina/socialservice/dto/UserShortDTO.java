@@ -2,6 +2,7 @@ package ru.vsu.cs.sheina.socialservice.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import ru.vsu.cs.sheina.socialservice.entity.enums.RelationStatus;
 
 import java.util.UUID;
 
@@ -18,4 +19,6 @@ public class UserShortDTO {
     String coverUrl;
 
     String bio;
+
+    RelationStatus status;
 }
