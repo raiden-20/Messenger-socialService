@@ -49,22 +49,23 @@ public class RelationService {
 
     public List<UserShortDTO> getUsers(UUID id, String relation) {
         RelationRequest relationRequest = RelationRequest.valueOf(relation.toUpperCase());
-        RelationStatus relationStatus = RelationStatus.FRIENDS;
+        RelationStatus relationStatus = null;
         List<UserRelationEntity> relations = new ArrayList<>();
+
         switch (relationRequest) {
-            case FRIENDS: {
+            case FRIENDS -> {
                 relations = userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.FRIENDS.toString());
                 relationStatus = RelationStatus.FRIENDS;
             }
-            case SUBSCRIBERS: {
+            case SUBSCRIBERS -> {
                 relations = userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.SEND_SECOND.toString());
                 relationStatus = RelationStatus.SEND_SECOND;
             }
-            case SUBSCRIPTIONS: {
+            case SUBSCRIPTIONS -> {
                 relations = userRelationRepository.getUserRelationEntitiesByFirstUserAndStatus(id, RelationStatus.SEND_FIRST.toString());
                 relationStatus = RelationStatus.SEND_FIRST;
             }
-        };
+        }
 
         List<UserShortDTO> dtos =  relations.stream()
                 .map(UserRelationEntity::getSecondUser)
